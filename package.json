@@ -18,7 +18,8 @@
   "author": "hij1nx",
   "license": "MIT",
   "dependencies": {
-    "through": "~2.3.4"
+    "through": "~2.3.4",
+    "json-stringify-safe": "~5.0.0"
   },
   "devDependencies": {
     "better-assert": "~1.0.0"

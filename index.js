@@ -1,5 +1,6 @@
 var through = require('through')
 var crypto = require('crypto')
+var stringify = require('json-stringify-safe')
 
 function hash(value) {
   var shasum = crypto.createHash('sha1')
@@ -31,7 +32,7 @@ CacheStream.prototype.cache = function(cb) {
       h = hash(obj.toString())
     }
     else if (typeof obj === 'object') {
-      h = hash(JSON.stringify(obj))
+      h = hash(stringify(obj))
     }
     else {
       h = hash(String(obj))
