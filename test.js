@@ -74,4 +74,13 @@ stream3.write({ value: 'a' })
 stream3.write({ value: 'b' })
 stream3.end()
 
+var circular = {}
+circular.circular = circular
+
+tc.cache(function(obj) {
+	l('Transforming circular structure')
+	var str = '<div>' + obj + '</div>'
+	this.push(str)
+}).write(circular)
+
 l('Finished')
