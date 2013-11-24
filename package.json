@@ -1,0 +1,17 @@
+{
+  "name": "through-cache",
+  "version": "0.1.0",
+  "description": "a through stream that caches",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test.js"
+  },
+  "author": "hij1nx",
+  "license": "MIT",
+  "dependencies": {
+    "through": "~2.3.4"
+  },
+  "devDependencies": {
+    "better-assert": "~1.0.0"
+  }
+}
