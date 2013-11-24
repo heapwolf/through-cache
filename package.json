@@ -6,6 +6,15 @@
   "scripts": {
     "test": "node ./test.js"
   },
+  "keywords": [
+    "through",
+    "throughstream",
+    "throughstreams",
+    "streams",
+    "streaming",
+    "cache",
+    "caching"
+  ],
   "author": "hij1nx",
   "license": "MIT",
   "dependencies": {
