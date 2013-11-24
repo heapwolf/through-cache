@@ -1,6 +1,7 @@
 var assert = require('better-assert')
 var through = require('through')
 var tc = require('./index')()
+var l = console.log
 
 var cbcount = 0
 var writecount = 0
@@ -11,6 +12,7 @@ var stream2 = through()
 stream1
 	.pipe(tc.cache(function(obj) {
 		++cbcount
+		l('Transforming stream1')
 		var str = '<div>' + obj.value + '</div>'
 		this.push(str)
 	}))
@@ -21,7 +23,9 @@ stream2.on('data', function() {
 })
 
 stream1.on('end', function() {
+	l('Asserting the callback count')
 	assert(cbcount == 1)
+	l('Asserting the write count')
 	assert(writecount == 2)
 })
 
@@ -39,28 +43,35 @@ var stream4 = through()
 stream3
 	.pipe(tc.cache(function(obj) {
 
+		l('Transforming stream 3, more than once')
+
 		this.transform(function(o) {
 			return '<div>' + o + '</div>'
 		})
 
 		++cbcount
 		var str = obj.value
-		this.push(str)
+		this.queue(str)
 
 	}))
 	.pipe(stream4)
 
 stream4.on('data', function(d) {
+	l('Asserting the value was changed by the transform function')
 	assert(d[0] == '<')
 	assert(d[d.length-1] == '>')
 	++writecount
 })
 
 stream3.on('end', function() {
+	l('Asserting the callback count')
 	assert(cbcount == 2)
+	l('Asserting the write count')
 	assert(writecount == 2)
 })
 
 stream3.write({ value: 'a' })
 stream3.write({ value: 'b' })
 stream3.end()
+
+l('Finished')

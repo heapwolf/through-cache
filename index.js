@@ -42,7 +42,6 @@ CacheStream.prototype.cache = function(cb) {
     }
 
     var push = this.push
-    var queue = this.queue
 
     this.transform = function(fn) {
       if (transform) {
@@ -51,18 +50,13 @@ CacheStream.prototype.cache = function(cb) {
       transform = fn
     }
 
-    this.push = function(data) {
+    this.queue = this.push = function(data) {
       if (transform && !transformed) {
         transformed = true
         data = transform(data)
       }
       cache[h] = data
       push(data)
-    }
-
-    this.queue = function(data) {
-      cache[h] = data
-      queue(data)
     }
     
     cb.call(this, obj)
