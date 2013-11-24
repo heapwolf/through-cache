@@ -44,8 +44,8 @@ a.pipe(tc.cache(function(obj) {
 	this.transform(function(data) {
 		return '<div>' + data + '</div>'
 	})
-	
-	this.push(str)
+
+	this.push(obj.value)
 
 }).pipe(b)
 ```

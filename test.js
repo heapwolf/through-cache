@@ -40,19 +40,19 @@ stream3
 	.pipe(tc.cache(function(obj) {
 
 		this.transform(function(o) {
-			return '[' + o + ']'
+			return '<div>' + o + '</div>'
 		})
 
 		++cbcount
-		var str = '<div>' + obj.value + '</div>'
+		var str = obj.value
 		this.push(str)
 
 	}))
 	.pipe(stream4)
 
 stream4.on('data', function(d) {
-	assert(d[0] == '[')
-	assert(d[d.length-1] == ']')
+	assert(d[0] == '<')
+	assert(d[d.length-1] == '>')
 	++writecount
 })
 
