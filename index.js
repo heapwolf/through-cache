@@ -25,6 +25,7 @@ CacheStream.prototype.cache = function(cb) {
   return through(function(obj) {
 
     var transformed = false
+    var h
 
     if (Buffer.isBuffer(obj)) {
       h = hash(obj.toString())
