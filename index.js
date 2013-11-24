@@ -20,8 +20,8 @@ CacheStream.prototype.invalidate = function() {
 CacheStream.prototype.cache = function(cb) {
 
   var stream = through()
-  var datacache = this.datacache
-  var functioncache;
+  var cache = this.datacache
+  var transform;
 
   return stream.pipe(through(function(obj) {
 
@@ -37,31 +37,31 @@ CacheStream.prototype.cache = function(cb) {
       h = hash(String(obj))
     }
 
-    if (datacache[h]) {
-      return this.push(datacache[h])
+    if (cache[h]) {
+      return this.push(cache[h])
     }
 
     var push = this.push
     var queue = this.queue
 
     this.transform = function(fn) {
-      if (functioncache) {
+      if (transform) {
         return
       }
-      functioncache = fn
+      transform = fn
     }
 
     this.push = function(data) {
-      if (functioncache && !transformed) {
+      if (transform && !transformed) {
         transformed = true
-        data = functioncache(data)
+        data = transform(data)
       }
-      datacache[h] = data
+      cache[h] = data
       push(data)
     }
 
     this.queue = function(data) {
-      datacache[h] = data
+      cache[h] = data
       queue(data)
     }
     

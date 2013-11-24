@@ -41,9 +41,9 @@ To cache a function that will get applied to the data.
 ```js
 a.pipe(tc.cache(function(obj) {
 
-	// this function will get cached and then applied
-	// to the data every time data gets written to the
-	// stream.
+	// the transform function will get cached and then 
+	// applied to the data every time data gets pushed 
+	// to the stream.
 
 	this.transform(function(data) {
 		return '<div>' + data + '</div>'
