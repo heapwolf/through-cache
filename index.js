@@ -19,11 +19,10 @@ CacheStream.prototype.invalidate = function() {
 
 CacheStream.prototype.cache = function(cb) {
 
-  var stream = through()
   var cache = this.datacache
   var transform;
 
-  return stream.pipe(through(function(obj) {
+  return through(function(obj) {
 
     var transformed = false
 
@@ -60,6 +59,6 @@ CacheStream.prototype.cache = function(cb) {
     }
     
     cb.call(this, obj)
-  }))
+  })
 
 }
